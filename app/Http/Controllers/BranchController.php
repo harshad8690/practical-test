@@ -21,7 +21,7 @@ class BranchController extends Controller
         $branch->name = $request->name;
         $branch->business_id = $request->business;
         $branch->save();
-
+        
         foreach($request->start_time as $key => $time){
             if($time != null){
                 foreach($time as $tkey => $fTime){
@@ -36,5 +36,14 @@ class BranchController extends Controller
         }
 
         return redirect()->route('business.index')->with('success', 'Branch registered successfully.');
+    }
+
+    public function show($id){
+        $data = WeekDay::with(['branch_time' => function ($query) use ($id) {
+            $query->where('branch_id', $id);
+        }])->get();
+        
+        $branch_data = Branch::find($id);        
+        return view('branch.show', compact('data','branch_data'));        
     }
 }

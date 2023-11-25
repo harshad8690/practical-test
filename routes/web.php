@@ -15,9 +15,6 @@ use App\Http\Controllers\BranchController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+Route::redirect('/', '/business');
 Route::resource('business', BusinessController::class);
 Route::resource('branch', BranchController::class);

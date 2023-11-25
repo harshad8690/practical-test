@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use App\Models\Business;
+use App\Models\Branch;
 use DataTables;
 
 class BusinessController extends Controller
@@ -17,14 +18,12 @@ class BusinessController extends Controller
             $data = Business::select(['id', 'name']);
     
             return DataTables::of($data)
-                ->addColumn('action', function ($business) {
-                    return '<a href="#">Delete</a>';
-                })
-                ->make(true);
-        }
-    
+            ->addColumn('action', function ($business) {
+                return '<a href="' . url("business/" . $business->id) . '">Show</a>';
+            })
+            ->make(true);
+        }    
         return view('business.index');
-    
     }
 
     public function create(){
@@ -53,5 +52,10 @@ class BusinessController extends Controller
         $business->save();
     
         return redirect()->route('business.index')->with('success', 'Business registered successfully.');
+    }
+
+    public function show($id){
+        $datas = Branch::where('business_id',$id)->get(['id', 'name']);    
+        return view('business.show',compact('datas'));
     }
 }
