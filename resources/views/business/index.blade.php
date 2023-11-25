@@ -21,6 +21,7 @@
             <tr>
                 <th>ID</th>
                 <th>Name</th>
+                <th>Logo</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -38,9 +39,18 @@
             columns: [
                 { data: 'id', name: 'id' },
                 { data: 'name', name: 'name' },
+                {
+                    data: 'logo',
+                    name: 'logo',
+                    render: function (data, type, full, meta) {
+                        var logoUrl = "{{ asset('logos/') }}" + '/' + data;
+                        return '<img src="' + logoUrl + '" alt="Logo" style="max-width: 50px; max-height: 50px;">';
+                    }
+                },
                 { data: 'action', name: 'action', orderable: false, searchable: false },
             ],
         });
     });
+
 </script>
 @endsection

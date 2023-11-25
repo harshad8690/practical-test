@@ -3,7 +3,7 @@
 
 <div class="container mt-4">
     <h2>Create Branch</h2>
-    <form id="branchForm" action="{{ route('branch.store') }}" method="post">
+    <form id="branchForm" action="{{ route('branch.store') }}" method="post" enctype="multipart/form-data">
         @csrf
 
         <div class="form-group">
@@ -19,6 +19,11 @@
         <div class="form-group">
             <label for="name">Name:</label>
             <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="images">Select Images:</label>
+            <input type="file" class="form-control" id="images" name="images[]" accept="image/*" multiple required>
         </div>
 
         <div class="form-group">
